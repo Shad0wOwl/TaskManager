@@ -1,14 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-
 /*NAVIGATION*/
 
 .navbar {
@@ -37,7 +26,7 @@ body {
 
 .navbar ul a {
     position: relative;
-    transition: color 0.3 ease;
+    transition: color 0.3s ease;
 }
 
 .navbar ul a::after {
@@ -103,17 +92,17 @@ body {
     justify-content: center;
 }
 
-.first {
+.primary {
     color: white;
     background-color: #1d4064;
     transition: background-color 0.3s ease;
 }
 
-.first:hover {
+.primary:hover {
     background-color: #4285c7;
 }
 
-.second {
+.secondary {
     font-weight: bold;
     color: #1d4064;
     background-color: transparent;
@@ -121,86 +110,7 @@ body {
     transition: 0.3s ease;
 }
 
-.second:hover {
+.secondary:hover {
     background-color: #1d4064;
     color: white;
-}
-
-/*AUTHENTICATION*/
-
-.auth-page {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1f4064;
-}
-
-.auth-form {
-    width: 100%;
-    max-width: 420px;
-    padding: 40px;
-
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.form-group input {
-    padding: 12px 14px;
-    border: 2px solid #d6dce3;
-    border-radius: 6px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.form-group input:focus {
-    border-color: #316ca7;
-}
-
-.form-group label {
-    font-weight: 600;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 12px 24px;
-
-    border: none;
-    border-radius: 6px;
-
-    background-color: #316ca7;
-    color: white;
-
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    
-    transition: background-color 0.3 ease;
-}
-
-.submit-button:hover {
-    background-color: #4285c7;
-}
-
-.auth-switch {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.auth-switch a {
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.auth-switch a:hover {
-    color: #4da6ff;
 }

@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
     <main class="auth-page">
-        <form class="auth-form">
+        <a href="../index.html" class="back-home">Back to home</a>
+        <form class="auth-form" id="register-form">
             <h1>Create your Account</h1>
             <p>Start organizing your projects and tasks</p>
             <div class="form-group">
@@ -26,6 +28,7 @@
             <div class="form-group">
                 <label for="con-password">Confirm Password: </label>
                 <input type="password" id="con-password" name="con-password" required>
+                <p id="password-error" class="error-message"></p>
             </div>
             <button type="submit" class="submit-button">Create Account</button>
             <p class="auth-switch">
@@ -34,5 +37,6 @@
             </p>
         </form>
     </main>
+    <script src="../js/register.js"></script>
 </body>
 </html>
