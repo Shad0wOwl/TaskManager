@@ -2,10 +2,12 @@ const registerForm = document.getElementById("register-form");
 const passwordInput = document.getElementById("password");
 const passwordError = document.getElementById("password-error");
 const confirmPasswordInput = document.getElementById("con-password");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
 
 
 
-registerForm.addEventListener("submit", function(event) {
+registerForm.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const password = passwordInput.value;
@@ -22,6 +24,44 @@ registerForm.addEventListener("submit", function(event) {
     }
 
     passwordError.textContent = "";
+
+    const userData = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        password: password
+    };
+
+    /*fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+    });
+    */
+    try {
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+            alert("Account created successfully!");
+            registerForm.reset();
+        } else if (response.status === 409) {
+            alert("This email is already registered.");
+        } else if (response.status === 400) {
+            alert("Please check your registration details.");
+        } else {
+            alert("Something went wrong. Please try again later.");
+        }
+    } catch (error) {
+        console.error("Registration error: ", error);
+        alert("Cannot connect to the server. Please try again later.");
+    }
 });
 
 
