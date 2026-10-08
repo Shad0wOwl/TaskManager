@@ -4,11 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.shad0wowl.taskmanager.service.AuthService;
 import com.shad0wowl.taskmanager.dto.RegisterRequest;
+import com.shad0wowl.taskmanager.dto.LoginRequest;
 
 import jakarta.validation.Valid;
 
@@ -33,5 +35,13 @@ public class AuthController {
         );
 
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request) {
+
+        authService.login(request.email(), request.password());
+
+        return ResponseEntity.ok("Credentials verified succesfully");
     }
 }
