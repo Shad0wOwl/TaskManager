@@ -13,10 +13,22 @@ loginForm.addEventListener("submit", async function(event) {
     };
 
     try {
-        const response = await fetch("http://localhost:8080/api/auth/login", {
+        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+            credentials: "include"
+        });
+
+        if (!csrfResponse.ok) {
+            throw new Error("Failed to fetch CSRF token");
+        }
+
+        const csrf = await csrfResponse.json();
+
+        const response = await fetch("http://127.0.0.1:8080/api/auth/login", {
         method: "POST",
+        credentials: "include",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            [csrf.headerName]: csrf.token
         },
         body: JSON.stringify(loginData)
     });
