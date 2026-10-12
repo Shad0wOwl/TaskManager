@@ -35,7 +35,7 @@ loginForm.addEventListener("submit", async function(event) {
 
     if (response.ok) {
             alert("Credentials verified successfully!");
-            registerForm.reset();
+            loginForm.reset();
         } else if (response.status === 401) {
             alert("Invalid email or password.");
         } else {
