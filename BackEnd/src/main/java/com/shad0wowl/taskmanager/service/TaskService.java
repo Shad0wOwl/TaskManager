@@ -38,4 +38,22 @@ public class TaskService {
     public List<Task> getTasks(String email) {
         return taskRepository.findByUserEmail(email);
     }
+
+    public Task updateTaskStatus(Long taskId, boolean completed, String email) {
+
+        Task task = taskRepository.findById(taskId)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Task not found"
+            ));
+        
+        if (!task.getUser().getEmail().equals(email)) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "Access denied"
+            );
+        }
+
+        task.setCompleted(completed);
+
+        return taskRepository.save(task);
+    }
 }

@@ -61,6 +61,10 @@ public class Task {
         return completed;
     }
 
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
