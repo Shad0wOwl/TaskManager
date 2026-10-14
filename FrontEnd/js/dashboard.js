@@ -96,8 +96,128 @@ async function loadTasks() {
             const taskContent = document.createElement("div");
             taskContent.classList.add("task-content");
 
+            const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.classList.add("edit-task-btn");
+            editBtn.textContent = "Edit";
+
+            editBtn.addEventListener("click", async () => {
+                const newTitle = prompt("Edit task title:", task.title);
+
+                if (newTitle === null) {
+                    return;
+                }
+
+                const title = newTitle.trim();
+
+                if (!title) {
+                    alert("Task title cannot be empty.");
+                    return;
+                }
+
+                const newDescription = prompt(
+                    "Edit task description:",
+                    task.description ?? ""
+                );
+
+                if (newDescription === null) {
+                    return;
+                }
+
+                editBtn.disabled = true;
+
+                try {
+                    const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+                        credentials: "include"
+                    });
+
+                    if (!csrfResponse.ok) {
+        throw new Error("Failed to fetch CSRF token");
+                    }
+
+                    const csrf = await csrfResponse.json();
+
+                    const response = await fetch(
+                        `http://127.0.0.1:8080/api/tasks/${task.id}`,
+                        {
+                            method: "PUT",
+                            credentials: "include",
+                            headers: {
+                                "Content-Type": "application/json",
+                                [csrf.headerName]: csrf.token
+                            },
+                            body: JSON.stringify({
+                                title: title,
+                                description: newDescription
+                            })
+                        }
+                        );
+
+                    if (!response.ok) {
+                        throw new Error("Failed to update task");
+                    }
+
+                    await loadTasks();
+
+                } catch (error) {
+                    console.error("Error editing task:", error);
+                    alert("Could not update task.");
+                } finally {
+                    editBtn.disabled = false;
+                }
+            }); 
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.classList.add("delete-task-btn");
+            deleteBtn.textContent = "Delete";
+
+            deleteBtn.addEventListener("click", async () => {
+                const confirmed = confirm("Are you sure you want to delete this task?");
+
+                if (!confirmed) {
+                    return;
+                }
+
+                deleteBtn.disabled = true;
+
+                try {
+                    const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+                        credentials: "include"
+                    });
+
+                    if (!csrfResponse.ok) {
+                        throw new Error("Failed to fetch CSFR token");
+                    }
+
+                    const csrf = await csrfResponse.json();
+
+                    const response = await fetch(
+                        `http://127.0.0.1:8080/api/tasks/${task.id}`,
+                        {
+                            method: "DELETE",
+                            credentials: "include",
+                            headers: {
+                                [csrf.headerName]:csrf.token
+                            }
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error("Failed to delete task");
+                    }
+
+                    taskElement.remove();
+
+                } catch (error) {
+                    console.error("Error deleting task:", error);
+                    alert("could not delete task");
+                    deleteBtn.disabled = false
+                }
+            });
+            
             taskContent.append(title, description);
-            taskElement.append(checkbox, taskContent);
+            taskElement.append(checkbox, taskContent, editBtn, deleteBtn);
 
             taskList.appendChild(taskElement);
         });

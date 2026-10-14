@@ -56,4 +56,39 @@ public class TaskService {
 
         return taskRepository.save(task);
     }
+
+    public void deleteTask(Long taskId, String email) {
+
+        Task task = taskRepository.findById(taskId)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Task not Found"
+            ));
+
+        if (!task.getUser().getEmail().equals(email)) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "Access denied"
+            );
+        }
+
+        taskRepository.delete(task);
+    }
+
+    public Task updateTask(Long taskId, String title, String description, String email) {
+
+        Task task = taskRepository.findById(taskId)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Task not found"
+            ));
+
+        if (!task.getUser().getEmail().equals(email)) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "Access denied"
+            );
+        }
+
+        task.setTitle(title);
+        task.setDescription(description);
+
+        return taskRepository.save(task);
+    }
 }
