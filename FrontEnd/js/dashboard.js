@@ -4,6 +4,14 @@ const taskTitle = document.getElementById("taskTitle");
 const taskDescription = document.getElementById("taskDescription");
 const logoutBtn = document.getElementById("logoutBtn");
 
+const editModal = document.getElementById("editModal");
+const editTaskForm = document.getElementById("editTaskForm");
+const editTaskTitle = document.getElementById("editTaskTitle");
+const editTaskDescription = document.getElementById("editTaskDescription");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+let editingTaskId = null;
+
 async function loadTasks() {
     try {
         const response = await fetch("http://127.0.0.1:8080/api/tasks", {
@@ -101,71 +109,14 @@ async function loadTasks() {
             editBtn.classList.add("edit-task-btn");
             editBtn.textContent = "Edit";
 
-            editBtn.addEventListener("click", async () => {
-                const newTitle = prompt("Edit task title:", task.title);
+            editBtn.addEventListener("click", () => {
+                editingTaskId = task.id;
 
-                if (newTitle === null) {
-                    return;
-                }
+                editTaskTitle.value = task.title;
+                editTaskDescription.value = task.description ?? "";
 
-                const title = newTitle.trim();
-
-                if (!title) {
-                    alert("Task title cannot be empty.");
-                    return;
-                }
-
-                const newDescription = prompt(
-                    "Edit task description:",
-                    task.description ?? ""
-                );
-
-                if (newDescription === null) {
-                    return;
-                }
-
-                editBtn.disabled = true;
-
-                try {
-                    const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
-                        credentials: "include"
-                    });
-
-                    if (!csrfResponse.ok) {
-        throw new Error("Failed to fetch CSRF token");
-                    }
-
-                    const csrf = await csrfResponse.json();
-
-                    const response = await fetch(
-                        `http://127.0.0.1:8080/api/tasks/${task.id}`,
-                        {
-                            method: "PUT",
-                            credentials: "include",
-                            headers: {
-                                "Content-Type": "application/json",
-                                [csrf.headerName]: csrf.token
-                            },
-                            body: JSON.stringify({
-                                title: title,
-                                description: newDescription
-                            })
-                        }
-                        );
-
-                    if (!response.ok) {
-                        throw new Error("Failed to update task");
-                    }
-
-                    await loadTasks();
-
-                } catch (error) {
-                    console.error("Error editing task:", error);
-                    alert("Could not update task.");
-                } finally {
-                    editBtn.disabled = false;
-                }
-            }); 
+                editModal.hidden = false;
+            });
 
             const deleteBtn = document.createElement("button");
             deleteBtn.type = "button";
@@ -304,5 +255,81 @@ logoutBtn.addEventListener("click", async () => {
     } catch (error) {
         console.error("Logout error:", error);
         alert("Could not log out.");
+    }
+});
+
+editTaskForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const title = editTaskTitle.value.trim();
+    const description = editTaskDescription.value.trim();
+
+    if (!title || editingTaskId === null) {
+        return;
+    }
+
+    const saveEditBtn = document.getElementById("saveEditBtn");
+    saveEditBtn.disabled = true;
+
+    try {
+        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+            credentials: "include"
+        });
+
+        if (!csrfResponse.ok) {
+            throw new Error("Failed to fetch CSRF token");
+        }
+
+        const csrf = await csrfResponse.json();
+
+        const response = await fetch(
+            `http://127.0.0.1:8080/api/tasks/${editingTaskId}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrf.headerName]: csrf.token
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Faileed to update task");
+        }
+
+        editModal.hidden = true;
+        editingTaskId = null;
+
+        await loadTasks();
+
+    } catch (error) {
+        console.error("Error editing task:", error);
+        alert("Could not update task");
+    } finally {
+        saveEditBtn.disabled = false;
+    }
+});
+
+cancelEditBtn.addEventListener("click", () => {
+    editModal.hidden = true;
+    editingTaskId = null;
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !editModal.hidden) {
+        editModal.hidden = true;
+        editingTaskId = null;
+    }
+});
+
+editModal.addEventListener("click", (event) => {
+    if (event.target === editModal) {
+        editModal.hidden = true;
+        editingTaskId = null;
     }
 });

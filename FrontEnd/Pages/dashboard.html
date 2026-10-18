@@ -52,6 +52,32 @@
         </section>
     </main>
 
+    <div id="editModal" class="modal-overlay" hidden>
+        <div class="modal-content">
+            <h2>Edit Task</h2>
+
+            <form id="editTaskForm">
+                <div>
+                    <label for="editTaskTitle">Title</label>
+                    <input
+                        type="text"
+                        id="editTaskTitle"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="editTaskDescription">Description</label>
+                    <textarea id="editTaskDescription"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" id="saveEditBtn">Save Changes</button>
+                    <button type="button" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script src="../js/dashboard.js"></script>
 </body>
 </html>

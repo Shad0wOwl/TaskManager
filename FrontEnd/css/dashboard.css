@@ -260,3 +260,135 @@ body {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.modal-content {
+    background: #1f2937;
+    padding: 30px;
+    border-radius: 12px;
+
+    width: 90%;
+    max-width: 450px;
+
+    border: 1px solid #374151;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    background: #111827;
+    color: white;
+
+    border: 1px solid #374151;
+    border-radius: 8px;
+
+    padding: 12px;
+    font: inherit;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #8b5cf6;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modal-actions button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+#cancelEditBtn {
+    background: #374151;
+    color: white;
+}
+
+#saveEditBtn {
+    background: #7c3aed;
+    color: white;
+}
+
+.modal-content form > div:not(.model-actions) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.modal-content label {
+    display: block;
+    width: 100%;
+}
+
+.modal-content input,
+.modal-content textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        padding:16px;
+    }
+
+    .task-item {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .task-content {
+        flex: 1 1 calc(100% - 44px);
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .edit-task-btn,
+    .delete-task-btn {
+        flex: 1;
+    }
+
+    .modal-content {
+        width: calc(100% - 32px);
+        max-width: 450px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+}
