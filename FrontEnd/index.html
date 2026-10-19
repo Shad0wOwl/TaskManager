@@ -13,8 +13,29 @@
             <a href="index.html" class="logo">TASK MANAGER</a>
             <ul>
                 <li><a href="#features">Features</a></li>
-                <li><a href="Pages/login.html">Log In</a></li>
-                <li><a href="Pages/register.html">Get Started</a></li>
+
+                <li class="guest-only">
+                    <a href="Pages/login.html">Log In</a>
+                </li>
+                <li class="guest-only">
+                    <a href="Pages/register.html">Get Started</a>
+                </li>
+
+                <li class="user-only" hidden>
+                    <a href="Pages/dashboard.html">Dashboard</a>
+                </li>
+
+                <li class="user-only user-menu" hidden>
+                    <button type="button" id="userMenuBtn" aria-expanded="false">
+                        <span id="userName">Account</span> ▼
+                    </button>
+
+                    <div id="userDropdown" class="user-dropdown" hidden>
+                        <button type="button" id="navLogoutBtn">
+                            Logout
+                        </button>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
@@ -30,8 +51,18 @@
                     track progress, and stay productive
                 </p>
                 <div class="main-banner-actions">
-                    <a href="Pages/register.html" class="primary">Get Started</a>
-                    <a href="Pages/login.html" class="secondary">Log In</a>
+
+                    <div class="hero-guest-actions">
+                        <a href="Pages/register.html" class="primary">Get Started</a>
+                        <a href="Pages/login.html" class="secondary">Log In</a>
+                    </div>
+
+                    <div class="hero-user-actions" hidden>
+                        <a href="Pages/dashboard.html" class="primary">
+                            Go to Dashboard ->
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -74,5 +105,6 @@
     <footer>
 
     </footer>
+    <script src="js/navbar.js"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@ loginForm.addEventListener("submit", async function(event) {
     });
 
     if (response.ok) {
-            window.location.href = "dashboard.html";
+            window.location.href = "../index.html";
             loginForm.reset();
         } else if (response.status === 401) {
             alert("Invalid email or password.");

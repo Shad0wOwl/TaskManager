@@ -7,3 +7,18 @@
 body {
     font-family: Arial, sans-serif;
 }
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+[hidden] {
+    display: none !important;
+}

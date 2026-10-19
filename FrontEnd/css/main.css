@@ -5,14 +5,15 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 20px 40px;
+    padding: 12px 40px;
     background-color: #1f2937;
 }
 
 .navbar ul {
     display: flex;
+    align-items: center;
     list-style: none;
-    gap: 30px;
+    gap: 24px;
 }
 
 .navbar a {
@@ -114,7 +115,7 @@
     background-color: transparent;
     border: 3px solid #8b5cf6;
     transition: 0.3s ease;
-}s
+}
 
 .secondary:hover {
     background-color: #8b5cf6;
@@ -229,4 +230,80 @@ body {
     .features-description {
         margin-bottom: 32px;
     }
+}
+
+.user-menu {
+    position: relative;
+}
+
+#userMenuBtn {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color: transparent;
+    border: none;
+    color: #f9fafb;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    cursor: pointer;
+    padding: 8px 0;
+    border-radius: 8px;
+
+    transition: background-color 0.2s ease;
+}
+
+#userMenuBtn:hover {
+    background-color: #374151;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+
+    min-width: 160px;
+    padding: 8px;
+
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    z-index: 1100;
+}
+
+.user-dropdown[hidden] {
+    display: none;
+}
+
+#navLogoutBtn {
+    width: 100%;
+    padding: 12px;
+
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+
+    color: #f87171;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+#navLogoutBtn:hover {
+    background-color: #374151;
+}
+
+.hero-guest-actions,
+.hero-user-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
