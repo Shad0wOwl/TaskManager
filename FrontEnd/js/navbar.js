@@ -6,6 +6,8 @@ const userDropdown = document.getElementById("userDropdown");
 const navLogoutBtn = document.getElementById("navLogoutBtn");
 const heroGuestActions = document.querySelector(".hero-guest-actions");
 const heroUserActions = document.querySelector(".hero-user-actions");
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const navLinks = document.getElementById("navLinks");
 
 async function checkUserSession() {
     try {
@@ -108,3 +110,29 @@ document.addEventListener("click", (event) => {
         userMenuBtn.setAttribute("aria-expanded", "false");
     }
 });
+
+mobileMenuBtn.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("mobile-open");
+
+    mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+
+    mobileMenuBtn.textContent = isOpen ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("mobile-open");
+
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+        mobileMenuBtn.textContent = "☰";
+    });
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+        navLinks.classList.remove("mobile-open");
+        
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+        mobileMenuBtn.textContent = "☰";
+    }
+})

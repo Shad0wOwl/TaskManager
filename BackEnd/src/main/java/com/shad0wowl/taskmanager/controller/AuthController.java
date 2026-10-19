@@ -77,7 +77,7 @@ public class AuthController {
 
         repository.saveContext(context, httpRequest, httpResponse);
 
-        return ResponseEntity.ok("Logged in sucesfully");
+        return ResponseEntity.ok("Logged in successfully");
     }
 
     @GetMapping("/csrf")

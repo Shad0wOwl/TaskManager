@@ -53,8 +53,30 @@ registerForm.addEventListener("submit", async function(event) {
         });
 
         if (response.ok) {
-            alert("Account created successfully!");
-            registerForm.reset();
+            const loginResponse = await fetch(
+                "http://127.0.0.1:8080/api/auth/login",
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        [csrf.headerName]: csrf.token
+                    },
+                    body: JSON.stringify({
+                        email: userData.email,
+                        password:userData.password
+                    })
+                }
+            );
+
+            if (!loginResponse.ok) {
+                alert("Account created, but automatic login failed. Please log in");
+                window.location.href = "login.html";
+                return;
+            }
+
+            window.location = "../index.html";
+            
         } else if (response.status === 409) {
             alert("This email is already registered.");
         } else if (response.status === 400) {
