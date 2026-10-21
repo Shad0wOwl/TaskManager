@@ -1,10 +1,16 @@
 # TaskManager
 
+**Live Demo:** [TaskManager](https://taskmanager-72d.pages.dev)
+
 A full-stack task management web application built with **Java, Spring Boot, and PostgreSQL**, featuring a responsive user interface, secure authentication, and user-specific task management.
 
 ## Status
 
-🚧 **Work in Progress** — Core functionality and automated unit tests are complete. Deployment is the next development milestone.
+**Deployed — Active Development**
+
+The application is publicly accessible, with the frontend hosted on Cloudflare Pages, the backend deployed on Render, and persistent data storage using PostgreSQL.
+
+Core task management functionality, authentication, and automated backend tests are implemented. Further improvements are planned for browser compatibility, user experience, and production reliability.
 
 ## Features
 
@@ -34,6 +40,17 @@ A full-stack task management web application built with **Java, Spring Boot, and
 
 ### Database
 - PostgreSQL
+
+## Deployment
+
+The application is deployed using the following services:
+
+- **Frontend:** Cloudflare Pages
+- **Backend:** Render (Docker)
+- **Database:** PostgreSQL hosted on Render
+- **CI/CD:** Automatic deployment from the GitHub `main` branch
+
+The frontend communicates with the Spring Boot REST API over HTTPS.
 
 ### Testing
 - JUnit 5
@@ -70,7 +87,9 @@ On Windows:
 
 **Latest test result:** 16 passed, 0 failures, 0 errors.
 
-## Upcoming
+## Planned Improvements
 
-- Deployment
-- Final documentation improvements
+- Improve cross-browser compatibility, particularly Safari authentication
+- Enhance loading states and error handling
+- Improve production reliability and database hosting
+- Final UI/UX refinements
