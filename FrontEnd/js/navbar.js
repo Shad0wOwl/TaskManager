@@ -12,7 +12,7 @@ const navLinks = document.getElementById("navLinks");
 async function checkUserSession() {
     try {
         const response = await fetch(
-            "http://127.0.0.1:8080/api/users/me",
+            `${API_URL}/api/users/me`,
             {
                 method: "GET",
                 credentials: "include"
@@ -57,7 +57,7 @@ userMenuBtn.addEventListener("click", () => {
 navLogoutBtn.addEventListener("click", async () => {
     try {
         const csrfResponse = await fetch(
-            "http://127.0.0.1:8080/api/auth/csrf",
+            `${API_URL}/api/auth/csrf`,
             {
                 credentials: "include"
             }
@@ -70,7 +70,7 @@ navLogoutBtn.addEventListener("click", async () => {
         const csrf = await csrfResponse.json();
 
         const response = await fetch(
-            "http://127.0.0.1:8080/api/auth/logout",
+            `${API_URL}/api/auth/logout`,
             {
                 method: "POST",
                 credentials: "include",

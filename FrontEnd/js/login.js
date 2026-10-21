@@ -13,7 +13,7 @@ loginForm.addEventListener("submit", async function(event) {
     };
 
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+        const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
             credentials: "include"
         });
 
@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async function(event) {
 
         const csrf = await csrfResponse.json();
 
-        const response = await fetch("http://127.0.0.1:8080/api/auth/login", {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: {
