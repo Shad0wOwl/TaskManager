@@ -14,7 +14,7 @@ let editingTaskId = null;
 
 async function loadTasks() {
     try {
-        const response = await fetch("http://127.0.0.1:8080/api/tasks", {
+        const response = await fetch(`${API_URL}/api/tasks`, {
             method: "GET",
             credentials: "include"
         });
@@ -58,7 +58,7 @@ async function loadTasks() {
                 checkbox.disabled = true;
 
                 try {
-                    const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+                    const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
                         credentials: "include"
                     });
 
@@ -69,7 +69,7 @@ async function loadTasks() {
                     const csrf = await csrfResponse.json();
 
                     const response = await fetch(
-                        `http://127.0.0.1:8080/api/tasks/${task.id}/status`,
+                        `${API_URL}/api/tasks/${task.id}/status`,
                         {
                             method: "PATCH",
                             credentials: "include",
@@ -133,7 +133,7 @@ async function loadTasks() {
                 deleteBtn.disabled = true;
 
                 try {
-                    const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+                    const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
                         credentials: "include"
                     });
 
@@ -144,7 +144,7 @@ async function loadTasks() {
                     const csrf = await csrfResponse.json();
 
                     const response = await fetch(
-                        `http://127.0.0.1:8080/api/tasks/${task.id}`,
+                        `${API_URL}/api/tasks/${task.id}`,
                         {
                             method: "DELETE",
                             credentials: "include",
@@ -192,7 +192,7 @@ createTaskForm.addEventListener("submit", async (event) => {
     }
 
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+        const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
             credentials: "include"
         });
 
@@ -202,7 +202,7 @@ createTaskForm.addEventListener("submit", async (event) => {
 
         const csrf = await csrfResponse.json();
 
-        const response = await fetch("http://127.0.0.1:8080/api/tasks", {
+        const response = await fetch(`${API_URL}/api/tasks`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -229,7 +229,7 @@ createTaskForm.addEventListener("submit", async (event) => {
 
 logoutBtn.addEventListener("click", async () => {
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+        const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
             credentials: "include"
         });
 
@@ -239,7 +239,7 @@ logoutBtn.addEventListener("click", async () => {
 
         const csrf = await csrfResponse.json();
 
-        const response = await fetch("http://127.0.0.1:8080/api/auth/logout", {
+        const response = await fetch(`${API_URL}/api/auth/logout`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -272,7 +272,7 @@ editTaskForm.addEventListener("submit", async (event) => {
     saveEditBtn.disabled = true;
 
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+        const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
             credentials: "include"
         });
 
@@ -283,7 +283,7 @@ editTaskForm.addEventListener("submit", async (event) => {
         const csrf = await csrfResponse.json();
 
         const response = await fetch(
-            `http://127.0.0.1:8080/api/tasks/${editingTaskId}`,
+            `${API_URL}/api/tasks/${editingTaskId}`,
             {
                 method: "PUT",
                 credentials: "include",

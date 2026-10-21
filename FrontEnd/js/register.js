@@ -32,7 +32,7 @@ registerForm.addEventListener("submit", async function(event) {
     };
 
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8080/api/auth/csrf", {
+        const csrfResponse = await fetch(`${API_URL}/api/auth/csrf`, {
             credentials: "include"
         });
 
@@ -42,7 +42,7 @@ registerForm.addEventListener("submit", async function(event) {
 
         const csrf = await csrfResponse.json();
         
-        const response = await fetch("http://127.0.0.1:8080/api/auth/register", {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -54,7 +54,7 @@ registerForm.addEventListener("submit", async function(event) {
 
         if (response.ok) {
             const loginResponse = await fetch(
-                "http://127.0.0.1:8080/api/auth/login",
+                `${API_URL}/api/auth/login`,
                 {
                     method: "POST",
                     credentials: "include",
